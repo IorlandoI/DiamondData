@@ -1,0 +1,107 @@
+---
+title: "HW5"
+author: "Orlando Malanco"
+date: "10/26/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+
+library(ggplot2)
+data("diamonds")
+```
+
+
+#1a
+#This is a histogram of carat and it has 150 bins.this shows the frequency at 
+# which the diamonds fall into certain weight.
+```{r}
+ggplot(diamonds, aes(x = carat)) + geom_histogram(bins = 150) + 
+  labs(title = "Number of diamonds within certain carat ranges") 
+```
+
+#1b
+#this graph plots the price in terms of carat. It color codes them by clarity
+# so you can see a vague difference in prices of diamonds due to clarity.
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + 
+  labs(title = "price variation in terms of carat and clarity ")
+```
+
+#1c
+# This graph shows a change in price given weight and distinguishes each point
+#by color coding it between clarities. this allows you to compaare prices between 
+# cuts as well as see a general line of where the price is for certain clarity
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + 
+  geom_smooth(se=FALSE) + labs(title = "Price in Relation to Carat and Clarity")
+```
+
+
+#1d
+#This shows the price in terms of weight within a given clarity
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + 
+  facet_wrap(clarity ~.) + labs(title = "price in relation to weight given 
+                                  clarity")
+
+```
+
+
+#1e
+# the violin graph is better for visualisation because it shows the density 
+#of the weights within a cut
+```{r}
+ggplot(diamonds, aes(x = carat, y = cut)) + geom_violin() + 
+  labs(title = "density of types of cut given weight")
+
+ggplot(diamonds, aes(x = carat, y = cut)) + 
+  geom_boxplot(outlier.colour="red") + 
+  labs(title = "variation of wight within a cut")
+
+ggplot(diamonds, aes(x = carat, y = cut)) +
+  geom_jitter() + labs(title = "weight of diamond within certain cuts")
+
+  ggplot(diamonds, aes(x = carat, y = cut)) + geom_point() + 
+  labs(title = "diamond cuts and their weights")
+
+
+```
+
+#2a
+# The forst graph is better at comparing the cuts within a given clarity and can
+# used to compare which is clarity is better for certain cuts but the graph that
+# splits up the cuts can be used to compare the clarities within a given cut
+```{r}
+ggplot(diamonds, aes(x = clarity, fill = cut)) + 
+  geom_bar(position = position_dodge())
+ggplot(diamonds, aes(x = clarity, fill = cut)) + 
+  geom_bar(position = position_dodge()) + facet_grid(cut~.) 
+
+```
+#2b
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price, col = clarity)) + 
+  geom_smooth(se = FALSE, method = lm)
+```
+#2c
+
+```{r}
+ggplot(diamonds, aes(x = clarity, y = price, col = cut)) + 
+  geom_boxplot()
+```
+
+
+#2d
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price, col = cut)) + 
+  geom_boxplot()
+```
